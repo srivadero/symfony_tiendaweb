@@ -96,6 +96,9 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "harmony-project/ui-bundle": {
+        "version": "1.1.2"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -131,6 +134,9 @@
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "semantic/ui": {
+        "version": "2.4.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

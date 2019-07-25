@@ -1,12 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}Home{% endblock %}</title>
+<link rel="stylesheet" href="{{ asset('../vendor/semantic/ui/dist/semantic.min.css') }}" />
+{% block stylesheets %}
+{% endblock %}
+</head>
+<body>
+	<div class="ui inverted menu">
+		<a class="item" href="{{ path('default') }}">Inicio</a>
+		<div class="ui dropdown item">
+			Menu
+			<i class="icon dropdown"></i>
+			<div class="menu">
+				<a href="" class="item">Menuitem 1</a>
+				<a href="" class="item">Menuitem 2</a>
+				<a href="" class="item">Menuitem 3</a>
+                {#
+				<a href="{{ path('categoria_index') }}" class="item">Categorias</a>
+				<a href="{{ path('producto_index') }}" class="item">Productos</a>
+				<a href="{{ path('producto_inventory') }}" class="item">Inventario</a>
+                #}
+			</div>
+		</div>
+		<div class="ui dropdown item">
+			Menu2
+			<i class="icon dropdown"></i>
+			<div class="menu">
+				<a href="" class="item">Menuitem 1</a>
+				<a href="" class="item">Menuitem 2</a>
+				<a href="" class="item">Menuitem 3</a>
+			</div>
+		</div>
+		<div class="ui right dropdown item">
+			{{ app.user ? app.user : 'Usuario' }}
+			<i class="icon dropdown"></i>
+			<div class="menu">
+				<a href="" class="item">Menuitem 1</a>
+				<a href="" class="item">Menuitem 2</a>
+				<a href="" class="item">Menuitem 3</a>
+                {#
+				{% if app.user %}
+				<a href="{{ path('fos_user_change_password') }}" class="item">Cambiar clave</a>
+				<a href="{{ path('fos_user_security_logout') }}" class="item">Salir</a>
+				{% else %}
+				<a href="{{ path('fos_user_security_login') }}" class="item">Ingresar</a>
+				<a href="{{ path('fos_user_registration_register') }}" class="item">Registrarse</a>
+				{% endif %}
+                #}
+			</div>
+		</div>
+	</div>
+	<div class="ui container">
+	{% block body %}
+	{% endblock %}
+	</div>
+		<script src="{{ asset('../vendor/components/jquery/jquery.min.js') }}"></script>
+		<script src="{{ asset('../vendor/semantic/ui/dist/semantic.min.js') }}"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.ui .dropdown').dropdown({
+					clearable: true,
+				});
+				$('.ui .checkbox').checkbox();
+			});
+		</script>
+		{% block javascripts %}
+		{% endblock %}
+</body>
 </html>
