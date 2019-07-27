@@ -37,10 +37,6 @@
 			{{ app.user ? app.user : 'Usuario' }}
 			<i class="icon dropdown"></i>
 			<div class="menu">
-				<a href="" class="item">Menuitem 1</a>
-				<a href="" class="item">Menuitem 2</a>
-				<a href="" class="item">Menuitem 3</a>
-                {#
 				{% if app.user %}
 				<a href="{{ path('fos_user_change_password') }}" class="item">Cambiar clave</a>
 				<a href="{{ path('fos_user_security_logout') }}" class="item">Salir</a>
@@ -48,7 +44,6 @@
 				<a href="{{ path('fos_user_security_login') }}" class="item">Ingresar</a>
 				<a href="{{ path('fos_user_registration_register') }}" class="item">Registrarse</a>
 				{% endif %}
-                #}
 			</div>
 		</div>
 	</div>

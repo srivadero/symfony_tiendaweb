@@ -1,0 +1,42 @@
+# App\Entity\Publicacion:
+#     publicacion_{1..10}:
+#         fecha: '<dateTimeBetween("-20 days", "now")>'
+#         titulo: '<sentence()>'
+#         contenido: '<paragraphs(3, true)>'
+#         autor: '@usuario_*'
+#         nombre: <catchPhrase()>
+#         precio: <randomFloat(2, 1, 1000)>
+#         cantidad: <randomNumber(2)>
+#         codigo: 66%? 7790<ean8()>
+#         categoria: '50%? @categoria_*'
+#         categorias: '<numberBetween(0, 3)>x @categoria_*'
+#         online: 'true'
+#         sumario: '<catchPhrase()>'
+#         fecha: '<dateTimeBetween("-10 days", "now")>'
+#         contenido: '<paragraphs(1, true)>'
+#         publicacion: '@publicacion_*'
+#         autor: '@usuario_*'
+
+# App\Entity\Producto:
+#     producto_{1..10}:
+#         nombre: 'producto<current()>'
+#         precio: <randomFloat(2, 1, 1000)>
+#         stock: <randomNumber(2)>
+#         categoria: '80%? @categoria_*'
+
+# App\Entity\Categoria:
+#     categoria_{1..3}:
+#         nombre: 'categoria<current()>'
+
+App\Entity\Usuario:
+    admin:
+        username: 'admin'
+        email: 'admin\@gmail.com'
+        plain_password: 'admin'
+        enabled: true
+        roles: ['ROLE_ADMIN']
+    usuario_{1..3}:
+        username: 'usuario<current()>'
+        email: 'usuario<current()>\@gmail.com'
+        plain_password: 'usuario<current()>'
+        enabled: true
