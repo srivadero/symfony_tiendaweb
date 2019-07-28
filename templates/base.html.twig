@@ -11,15 +11,12 @@
 	<div class="ui inverted menu">
 		<a class="item" href="{{ path('default') }}">Inicio</a>
 		<div class="ui dropdown item">
-			Menu
+			Catalogo
 			<i class="icon dropdown"></i>
 			<div class="menu">
-				<a href="" class="item">Menuitem 1</a>
-				<a href="" class="item">Menuitem 2</a>
-				<a href="" class="item">Menuitem 3</a>
-                {#
-				<a href="{{ path('categoria_index') }}" class="item">Categorias</a>
 				<a href="{{ path('producto_index') }}" class="item">Productos</a>
+				<a href="{{ path('categoria_index') }}" class="item">Categorias</a>
+                {#
 				<a href="{{ path('producto_inventory') }}" class="item">Inventario</a>
                 #}
 			</div>
