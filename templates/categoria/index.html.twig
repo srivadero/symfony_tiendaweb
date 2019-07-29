@@ -3,14 +3,15 @@
 {% block title %}Categorias{% endblock %}
 
 {% block body %}
-    <h1>Categoria index</h1>
+    <h1>Categorias</h1>
+    <a class="ui primary button" href="{{ path('categoria_new') }}">Agregar</a>
 
-    <table class="table">
+    <table class="ui table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>actions</th>
+                <th>acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +20,16 @@
                 <td>{{ categorium.id }}</td>
                 <td>{{ categorium.nombre }}</td>
                 <td>
-                    <a href="{{ path('categoria_show', {'id': categorium.id}) }}">show</a>
-                    <a href="{{ path('categoria_edit', {'id': categorium.id}) }}">edit</a>
+                    <a href="{{ path('categoria_show', {'id': categorium.id}) }}">ver</a>
+                    <a href="{{ path('categoria_edit', {'id': categorium.id}) }}">editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">no hay datos</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('categoria_new') }}">Create new</a>
 {% endblock %}

@@ -9,6 +9,37 @@ use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 class CategoriaControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
+    
+    public function testPageNavigation()
+    {
+        // As an admin user access Categoria index
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW' => 'admin',
+        ]);
+        $client->followRedirects();        
+        $client->request('GET', '/admin/categoria');
+        $this->assertResponseIsSuccessful();        
+
+        // Then link to 'Create new' and return
+        $client->clickLink('Agregar');
+        $this->assertSelectorTextContains('h1', 'Nueva Categoria');
+        $client->clickLink('Cancelar');
+        $this->assertSelectorTextContains('h1', 'Categorias');
+
+        // Then link to 'show'and return
+        $client->clickLink('ver');
+        $this->assertSelectorTextContains('h1', 'Categoria');
+        $client->clickLink('Volver');
+        $this->assertSelectorTextContains('h1', 'Categorias');
+
+        // Then link to 'edit' and return
+        $client->clickLink('editar');
+        $this->assertSelectorTextContains('h1', 'Editar Categoria');
+        $client->clickLink('Cancelar');
+        $this->assertSelectorTextContains('h1', 'Categorias');
+
+    }
 
     public function testCanAddCategoria()
     {
@@ -17,46 +48,36 @@ class CategoriaControllerTest extends WebTestCase
             'PHP_AUTH_PW' => 'admin',
         ]);
         $client->followRedirects();
-        
-        $client->request('GET', '/admin/categoria');
-
+        $client->request('GET', '/admin/categoria/new');
         $this->assertResponseIsSuccessful();
-
-        
-        $client->clickLink('Create new');
-        $this->assertSelectorTextContains('h1', 'Create new Categoria');
         $form = $client->submitForm(
-            'Save',
+            'Guardar',
             [
                 'categoria[nombre]'=>'[phpunit] new categoria',
             ]
         );
 
-        $this->assertSelectorTextContains('h1', 'Categoria index');
+        $this->assertSelectorTextContains('h1', 'Categorias');
     }
 
     public function testCanEditCategoria()
     {
+
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW' => 'admin',
         ]);
         $client->followRedirects();
-        $client->request('GET', '/admin/categoria');
-
+        $client->request('GET', '/admin/categoria/1/edit');
         $this->assertResponseIsSuccessful();
-        $this->assertPageTitleContains('Categorias');
-
-        $client->clickLink('edit');
-        $this->assertSelectorTextContains('h1', 'Edit Categoria');
         $form = $client->submitForm(
-            'Update',
+            'Actualizar',
             [
                 'categoria[nombre]'=>'[phpunit] updated categoria',
             ]
         );
 
-        $this->assertSelectorTextContains('h1', 'Categoria index');
+        $this->assertSelectorTextContains('h1', 'Categorias');
     }
 
 }

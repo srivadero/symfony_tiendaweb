@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Productos</h1>
-    <a href="{{ path('producto_new') }}">Agregar</a>
+    <a class="ui primary button" href="{{ path('producto_new') }}">Agregar</a>
 
     <table class="ui table">
         <thead>
@@ -30,7 +30,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">no hay datos</td>
             </tr>
         {% endfor %}
         </tbody>

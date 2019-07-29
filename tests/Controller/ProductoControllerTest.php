@@ -9,30 +9,54 @@ class ProductoControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
 
+    public function testPageNavigation()
+    {
+        // As an admin user access Producto index
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW' => 'admin',
+        ]);
+        $client->followRedirects();        
+        $client->request('GET', '/admin/producto');
+        $this->assertResponseIsSuccessful();        
+
+        // Then link to 'Create new' and return
+        $client->clickLink('Agregar');
+        $this->assertSelectorTextContains('h1', 'Nuevo Producto');
+        $client->clickLink('Cancelar');
+        $this->assertSelectorTextContains('h1', 'Productos');
+
+        // Then link to 'show'and return
+        $client->clickLink('ver');
+        $this->assertSelectorTextContains('h1', 'Producto');
+        $client->clickLink('Volver');
+        $this->assertSelectorTextContains('h1', 'Productos');
+
+        // Then link to 'edit' and return
+        $client->clickLink('editar');
+        $this->assertSelectorTextContains('h1', 'Editar Producto');
+        $client->clickLink('Cancelar');
+        $this->assertSelectorTextContains('h1', 'Productos');
+
+    }
+
     public function testCanAddProducto()
     {
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW' => 'admin',
         ]);
-        $client->followRedirects();
-        
-        $client->request('GET', '/admin/producto');
-
+        $client->followRedirects();        
+        $client->request('GET', '/admin/producto/new');
         $this->assertResponseIsSuccessful();
-
-        
-        $client->clickLink('Agregar');
-        $this->assertSelectorTextContains('h1', 'Create new Producto');
         $form = $client->submitForm(
-            'Save',
+            'Guardar',
             [
                 'producto[nombre]'=>'[phpunit] new product',
                 'producto[precio]'=>'99',
                 'producto[stock]'=>'6',
             ]
         );
-
         $this->assertSelectorTextContains('h1', 'Productos');
     }
 
@@ -43,14 +67,12 @@ class ProductoControllerTest extends WebTestCase
             'PHP_AUTH_PW' => 'admin',
         ]);
         $client->followRedirects();
-        $client->request('GET', '/admin/producto');
+        $client->request('GET', '/admin/producto/1/edit');
 
         $this->assertResponseIsSuccessful();
         
-        $client->clickLink('editar');
-        $this->assertSelectorTextContains('h1', 'Edit Producto');
         $form = $client->submitForm(
-            'Update',
+            'Actualizar',
             [
                 'producto[nombre]'=>'[phpunit] updated product',
                 'producto[precio]'=>'99',
