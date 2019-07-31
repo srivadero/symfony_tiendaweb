@@ -3,7 +3,20 @@
 {% block title %}Categoria{% endblock %}
 
 {% block body %}
-    <h1>Categoria</h1>
+<div class="ui two column stackable grid">
+	<div class="column">
+		<h1 class="ui header">
+			<i class="home icon"></i>
+			<div class="content">
+				Detalle de Categoria
+			</div>
+		</h1>
+	</div>
+	<div class="column">
+		<a class="ui right floated red button" >eliminar</a>
+		<a class="ui right floated button" href="{{ path('categoria_edit', {'id': categorium.id}) }}">editar</a>
+	</div>
+</div>
 
     <table class="ui table">
         <tbody>
@@ -19,7 +32,6 @@
     </table>
 
     <a class="ui primary button" href="{{ path('categoria_index') }}">Volver</a>
-    <a class="ui button" href="{{ path('categoria_edit', {'id': categorium.id}) }}">Editar</a>
 {#
     {{ include('categoria/_delete_form.html.twig') }}
 #}

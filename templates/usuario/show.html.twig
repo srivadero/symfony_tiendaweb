@@ -1,9 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Usuario{% endblock %}
+{% block title %}Usuario
+{% endblock %}
 
 {% block body %}
-    <h1>Usuario</h1>
+    <div class="ui two column stackable grid">
+        <div class="column">
+            <h1 class="ui header">
+                <i class="home icon"></i>
+                <div class="content">
+                    Detalle de Usuario
+                </div>
+            </h1>
+        </div>
+        <div class="column">
+            <a class="ui right floated red button">eliminar</a>
+            <a class="ui right floated button" href="{{ path('usuario_edit', {'id': usuario.id}) }}">editar</a>
+        </div>
+    </div>
 
     <table class="ui table">
         <tbody>
