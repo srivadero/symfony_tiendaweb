@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Ajax
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+			$(document).ready(function() {
+				$('.ui.dropdown').dropdown({
+					onChange: function(value, text, $choice)
+						{
+							var url = '{{ path("ajax", {'id': 'default_value' }) }}'; 
+							url = url.replace("default_value", value);
+							$.ajax({
+									url: url,
+									method: 'post',
+									urldata: 'data',
+								})
+								.done(function(data){
+									$('.result').html(data.data);
+								});
+						},
+					fullTextSearch : 'exact',
+					match : 'text',
+				});
+			});
+		</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#add').click(function(){
+		var valor = $('#categoria').val(); 
+		var url = '{{ path("agregar_categoria", {'id': 'default_value' }) }}'; 
+		url = url.replace("default_value", valor);
+		$.ajax({
+				url: url,
+				method: 'post',
+				urldata: 'data',
+			})
+			.done(function(data){
+				$('.result').html(data.data);
+				var id = data.data.id;
+				var value = data.data.value;
+				$('#producto_categorias').append('<div class="item" data-value="'+id+'">'+value+'</div>');
+				alert('Agregar al dropdown: ('+id+') - '+value); 
+			});
+		$('#categoria').val(''); 
+	});
+});
+</script>
+{% endblock %}
+
+{% block body %}
+<h1 class="ui header">Productos</h1>
+<div class="ui menu">
+	<div class="item">
+		<div class="ui action input">
+			<input id="categoria" type="text" placeholder="Nueva categoria">
+			<div id="add" class="ui button">Agregar</div>
+		</div>
+	</div>
+	<div class="right item">
+		<div class="ui dropdown">
+			<input type="hidden" name="filters"> Categoria: <span
+				class="text">Todas</span> <i class="dropdown icon"></i>
+			<div class="menu">
+				<div class="ui icon search input">
+					<i class="search icon"></i> <input type="text"
+						placeholder="Buscar...">
+				</div>
+				<div id="producto_categorias" class="scrolling menu">
+					<div class="item" data-value="0">Todas</div>
+					{% for item in categorias%}
+					<div class="item" data-value="{{ item.id }}">
+						{{ item.nombre }}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% block resultado %}
+<div class="ui result">
+	<table class="ui sortable table">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Categorias</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for producto in productos %}
+			<tr>
+				<td>{{ producto.nombre }}</td>
+				<td>{{ producto.categorias|length }}</td>
+				<td>
+					<a href="{{ path('producto_show', {'id': producto.id}) }}">ver</a>
+					<a href="{{ path('producto_edit', {'id': producto.id}) }}">editar</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+{# {% include 'ajax/listado.html.twig' %} #}
+{% endblock %}

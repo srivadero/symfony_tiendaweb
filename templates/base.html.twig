@@ -41,10 +41,19 @@
 				<a href="{{ path('fos_user_security_login') }}" class="item">Ingresar</a>
 				<a href="{{ path('fos_user_registration_register') }}" class="item">Registrarse</a>
 				{% endif %}
+				<a href="{{ path('usuario_index') }}" class="item">Usuarios</a>
 			</div>
 		</div>
 	</div>
 	<div class="ui container">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="ui floating message flash-{{ type }}">
+						<i class="close icon"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
 	{% block body %}
 	{% endblock %}
 	</div>
@@ -56,6 +65,11 @@
 					clearable: true,
 				});
 				$('.ui .checkbox').checkbox();
+				$('.message .close')
+					.on('click', function() {
+						$(this).closest('.message').transition('fade');
+					})
+				;
 			});
 		</script>
 		{% block javascripts %}

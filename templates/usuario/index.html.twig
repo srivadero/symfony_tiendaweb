@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block body %}
+    <h1>Usuarios</h1>
+    <a class="ui primary button" href="{{ path('usuario_new') }}">Agregar</a>
+
+    <table class="ui table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Activo</th>
+                <th>Roles</th>
+                <th>acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.usernameCanonical }}</td>
+                <td>{{ usuario.emailCanonical }}</td>
+                <td>{{ usuario.enabled ? 'Si' : 'No' }}</td>
+                <td>{{ usuario.roles ? usuario.roles|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('usuario_show', {'id': usuario.id}) }}">ver</a>
+                    <a href="{{ path('usuario_edit', {'id': usuario.id}) }}">editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no hay datos</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

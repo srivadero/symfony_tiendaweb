@@ -29,6 +29,7 @@ class DefaultControllerTest extends WebTestCase
         yield ['/admin/categoria/new'];
         yield ['/admin/categoria/1'];
         yield ['/admin/categoria/1/edit'];
+        yield ['/admin/usuario/'];
         // Add more secure ulrs...
     }
 

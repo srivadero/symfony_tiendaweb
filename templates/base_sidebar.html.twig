@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}Home{% endblock %}</title>
+<link rel="stylesheet"
+	href="{{ asset('../vendor/semantic/ui/dist/semantic.min.css') }}" />
+{% block stylesheets %}
+{% endblock %}
+</head>
+<body>
+	<div class="ui _visible sidebar inverted vertical big menu">
+		<div class="header item">Inicio</div>
+		{# Menu Catalogo #}		
+		<div class="item">
+			<div class="header">Catalogo</div>
+			<div class="menu">
+				<a class="item" href="{{ path('producto_index') }}">Productos<i class="barcode icon"></i></a>
+				<a class="item" href="{{ path('categoria_index') }}">Categorias<i class="clipboard list icon"></i></a>
+				<a class="item" >Inventario<i class="archive icon"></i></a>
+			</div>
+		</div>
+		
+		{# Menu Ventas #}		
+		<div class="item">
+			<div class="header">Ventas</div>
+			<div class="menu">
+				<a class="item" >Ordenes<i class="cart icon"></i></a>
+				<a class="item" >Envios<i class="truck icon"></i></a>
+			</div>
+		</div>
+		
+		{# Menu Clientes #}		
+		<div class="item">
+			<div class="header">Clientes</div>
+			<div class="menu">
+				<a class="item" >Clientes<i class="users icon"></i></a>
+				<a class="item" >Tipos<i class="o-circle icon"></i></a>
+			</div>
+		</div>
+		
+		{# Menu Configuracion #}		
+		<div class="item">
+			<div class="header">Configuracion</div>
+			<div class="menu">
+				<a class="item" href="{{ path('usuario_index') }}">Usuarios<i class="lock icon"></i></a>
+			</div>
+		</div>
+		
+	</div>
+	<div class="pusher">
+		<!-- Site content !-->
+		<div class="ui inverted menu">
+			<a class="item" onclick="$('.ui.sidebar').sidebar('toggle');">
+				<i class="sidebar icon"></i>
+			</a>
+			<a class="item" href="{{ path('default') }}">Inicio</a>
+			{% if app.user %}
+			{% endif %}
+			{#
+			<div class="ui dropdown item">
+				Menu <i class="icon dropdown"></i>
+				<div class="menu">
+					<a href="" class="item">Menuitem 1</a> <a href="" class="item">Menuitem
+						2</a> <a href="" class="item">Menuitem 3</a>
+				</div>
+			</div>
+			#}
+			<div class="ui right dropdown item">
+				{{ app.user ? app.user : 'Usuario' }}
+				<i class="icon dropdown"></i>
+				<div class="menu">
+					{% if app.user %}
+					<a href="{{ path('fos_user_change_password') }}" class="item">Cambiar
+						clave</a> <a href="{{ path('fos_user_security_logout') }}"
+						class="item">Salir</a>
+					{% else %}
+					<a href="{{ path('fos_user_security_login') }}" class="item">Ingresar</a>
+					<a href="{{ path('fos_user_registration_register') }}" class="item">Registrarse</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="ui container">
+			{% block body %}
+			{% endblock %}
+		</div>
+	</div>
+	<script src="{{ asset('../vendor/components/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('../vendor/semantic/ui/dist/semantic.min.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.ui .dropdown').dropdown({ clearable : true, });
+			$('.ui .checkbox').checkbox();
+			$('.ui.sidebar').sidebar();
+		});
+	</script>
+	{% block javascripts %}
+	{% endblock %}
+</body>
+</html>

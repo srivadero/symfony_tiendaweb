@@ -3,8 +3,20 @@
 {% block title %}Productos{% endblock %}
 
 {% block body %}
-    <h1>Productos</h1>
-    <a class="ui primary button" href="{{ path('producto_new') }}">Agregar</a>
+<div class="ui two column stackable grid">
+	<div class="column">
+		<h1 class="ui header">
+			<i class="barcode icon"></i>
+			<div class="content">
+				Productos
+				<div class="sub header">Manage your products</div>
+			</div>
+		</h1>
+	</div>
+	<div class="column">
+		<a class="ui right floated primary button" href="{{ path('producto_new') }}">Agregar</a>
+	</div>
+</div>
 
     <table class="ui table">
         <thead>

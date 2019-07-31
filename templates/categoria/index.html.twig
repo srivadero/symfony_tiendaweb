@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categorias{% endblock %}
+{% block title %}Categorias
+{% endblock %}
 
 {% block body %}
     <h1>Categorias</h1>
@@ -15,20 +16,20 @@
             </tr>
         </thead>
         <tbody>
-        {% for categorium in categorias %}
-            <tr>
-                <td>{{ categorium.id }}</td>
-                <td>{{ categorium.nombre }}</td>
-                <td>
-                    <a href="{{ path('categoria_show', {'id': categorium.id}) }}">ver</a>
-                    <a href="{{ path('categoria_edit', {'id': categorium.id}) }}">editar</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no hay datos</td>
-            </tr>
-        {% endfor %}
+            {% for categorium in categorias %}
+                <tr>
+                    <td>{{ categorium.id }}</td>
+                    <td>{{ categorium.nombre }}</td>
+                    <td>
+                        <a href="{{ path('categoria_show', {'id': categorium.id}) }}">ver</a>
+                        <a href="{{ path('categoria_edit', {'id': categorium.id}) }}">editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no hay datos</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

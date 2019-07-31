@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuario{% endblock %}
+
+{% block body %}
+    <h1>Usuario</h1>
+
+    <table class="ui table">
+        <tbody>
+            <tr>
+                <td>Nombre</td>
+                <td>{{ usuario.usernameCanonical }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{ usuario.emailCanonical }}</td>
+            </tr>
+            <tr>
+                <td>Activo</td>
+                <td>{{ usuario.enabled ? 'Si' : 'No' }}</td>
+            </tr>
+            <tr>
+                <td>Ultimo acceso</td>
+                <td>{{ usuario.lastLogin ? usuario.lastLogin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <td>Token</td>
+                <td>{{ usuario.confirmationToken }}</td>
+            </tr>
+            <tr>
+                <td>Roles</td>
+                <td>{{ usuario.roles ? usuario.roles|join(', ') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="ui primary button" href="{{ path('usuario_index') }}">Volver</a>
+
+{% endblock %}

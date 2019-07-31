@@ -1,0 +1,26 @@
+<div class="ui result">
+	<table class="ui sortable table">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Precio</th>
+				<th>Stock</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for producto in productos %}
+			<tr>
+				<td>{{ producto.nombre }}</td>
+				<td>{{ producto.descripcion }}</td>
+				<td>{{ producto.precio }}</td>
+				<td>{{ producto.stock }}</td>
+				<td><a href="{{ path('producto_show', {'id': producto.id}) }}">ver</a>
+					<a href="{{ path('producto_edit', {'id': producto.id}) }}">editar</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
