@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/admin/producto")
@@ -23,6 +24,27 @@ class ProductoController extends AbstractController
         return $this->render('producto/index.html.twig', [
             'productos' => $productoRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/index/{page}", name="producto_index_paginated", methods={"GET"})
+     */
+    public function indexPaginated(PaginatorInterface $paginator, ProductoRepository $productoRepository, int $page = 1): Response
+    {
+        
+        $em = $this->getDoctrine()->getManager();
+        $dql   = "SELECT p FROM App:Producto p";
+        $query = $em->createQuery($dql);
+    
+        // $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $page, //$request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+    
+        // parameters to template
+        return $this->render('producto/index_paginated.html.twig', ['pagination' => $pagination]);
     }
 
     /**

@@ -18,7 +18,7 @@
 #         autor: '@usuario_*'
 
 App\Entity\Producto:
-    producto_{1..10}:
+    producto_{1..25}:
         nombre: 'producto<current()>'
         precio: <randomFloat(2, 1, 1000)>
         stock: <randomNumber(2)>
